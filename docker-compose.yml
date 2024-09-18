@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    env_file: .env.docker
+    volumes:
+      - .:/ruby-vagas
+  db:
+    image: postgres:16
+    env_file: .env.docker
+    volumes:
+      - database-data:/var/lib/postgresql/data
+volumes:
+  database-data:
