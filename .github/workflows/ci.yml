@@ -44,14 +44,13 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
-
+    container: "ubuntu:24.04"
     services:
       db:
         image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: db
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -60,6 +59,9 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Install dependecies 
+        run: apt-get install libyaml-dev
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -76,5 +78,7 @@ jobs:
           bundler-cache: true
 
       - name: Run RSpec
-        run: bundle exec rake spec
+        run: |
+          bundle exec rake db:setup
+          bundle exec rake spec
 
