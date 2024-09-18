@@ -5,6 +5,11 @@ on:
   push:
     branches: [ main ]
 
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: db
+
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
@@ -39,9 +44,30 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: db
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: corepack enable
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
