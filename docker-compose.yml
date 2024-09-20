@@ -4,6 +4,8 @@ services:
     depends_on:
       - db
     env_file: .env.docker
+    ports:
+      - 3000:3000
     volumes:
       - .:/ruby-vagas
   db:
