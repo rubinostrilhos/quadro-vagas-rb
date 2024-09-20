@@ -8,7 +8,7 @@ on:
 env:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
-  POSTGRES_HOST: db
+  POSTGRES_HOST: localhost
 
 jobs:
   scan_ruby:
@@ -44,7 +44,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
-    container: "ubuntu:24.04"
+
     services:
       db:
         image: postgres:16
@@ -57,11 +57,11 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
 
     steps:
-      - name: Install dependecies 
-        run: apt-get install libyaml-dev
-
       - name: Checkout code
         uses: actions/checkout@v4
 
