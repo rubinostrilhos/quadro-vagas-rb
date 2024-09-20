@@ -5,6 +5,11 @@ on:
   push:
     branches: [ main ]
 
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: localhost
+
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
@@ -39,9 +44,32 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: corepack enable
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -50,5 +78,7 @@ jobs:
           bundler-cache: true
 
       - name: Run RSpec
-        run: bundle exec rake spec
+        run: |
+          bundle exec rake db:setup
+          bundle exec rake spec
 
