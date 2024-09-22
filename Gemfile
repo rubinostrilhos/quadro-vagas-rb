@@ -33,4 +33,7 @@ group :development, :test do
   gem "cuprite"
   gem "capybara"
   gem "simplecov"
+
+  gem "byebug"
+  gem 'factory_bot_rails'
 end
