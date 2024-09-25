@@ -1,0 +1,9 @@
+pt-BR:
+  user:
+    email: E-mail
+    password: Senha
+    password_confirmation: Confirmar senha
+  sign_up:
+    title: Novo usuário
+
+
