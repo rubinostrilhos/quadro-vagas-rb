@@ -13,8 +13,6 @@ gem "stimulus-rails"
 gem "cssbundling-rails"
 gem "jbuilder"
 
-gem "authentication-zero", "~> 3.0"
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -37,5 +35,5 @@ group :development, :test do
   gem "simplecov"
 
   gem "byebug"
-  gem 'factory_bot_rails'
+  gem "factory_bot_rails"
 end
