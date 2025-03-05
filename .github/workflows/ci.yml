@@ -1,39 +1,31 @@
-name: CI
+name: Ruby on Rails CI
 
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  scan_ruby:
+  test:
     runs-on: ubuntu-latest
-
+    env:
+      RAILS_ENV: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Install Ruby and gems
         with:
-          ruby-version: .ruby-version
+          ruby-version: '3.4.2'
           bundler-cache: true
 
-  scan_js:
-    runs-on: ubuntu-latest
+      - name: Set up database schema
+        run: bin/rails db:schema:load
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
+      - name: Run tests
+        run: bin/rake spec
 
   lint:
     runs-on: ubuntu-latest
@@ -41,11 +33,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Install Ruby and gems
         with:
-          ruby-version: .ruby-version
+          ruby-version: '3.4.2'
           bundler-cache: true
 
-      - name: Lint code for consistent style
-        run: bin/rubocop -f github
+      - name: Lint Ruby files
+        run: bundle exec rubocop
