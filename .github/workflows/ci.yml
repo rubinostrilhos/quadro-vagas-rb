@@ -1,4 +1,4 @@
-name: Quadro Vagas CI
+name: CI
 
 on:
   push:
@@ -8,49 +8,10 @@ on:
 
 jobs:
   lint:
-    name: Linter
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1.221.0
-        with:
-          bundler-cache: true
-
-      - name: Install bundler-audit
-        run: gem install bundler-audit
-
-      - name: Security audit dependencies
-        run: bundle-audit check --update
-
-      - name: Lint files
-        run: bundle exec rubocop
-
-  test:
-    name: Tests
+    name: Run Rubocop
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
-      DATABASE_HOST: localhost
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: quadro_vagas_rb_test
-    services:
-      postgres:
-        image: postgres:14-alpine
-        env:
-          POSTGRES_DB: quadro_vagas_rb_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-        - 5432:5432
-        options: >-
-            --health-cmd "pg_isready -U postgres"
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -60,8 +21,25 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up database schema
-        run: bin/rails db:schema:load
+      - name: Run Rubocop
+        run: bundle exec rubocop
 
-      - name: Run tests
-        run: bin/rake spec
+  tests:
+    name: Run RSpec Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Start Rails container
+        run: |
+          docker compose -f "docker-compose.development.yml" build
+          docker compose -f "docker-compose.development.yml" up -d
+          echo "Aguardando Rails iniciar..."
+          sleep 10
+          docker compose -f "docker-compose.development.yml" ps
+
+      - name: Run RSpec Tests
+        run: |
+          docker exec -u appuser rails_app bundle exec rspec
+          sudo chown -R $(whoami) .git
