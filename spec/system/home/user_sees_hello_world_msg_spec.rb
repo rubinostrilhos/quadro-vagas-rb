@@ -6,11 +6,9 @@ describe "Visitant vistis home" do
 
     expect(page).to have_content 'Carregando...'
   end
-
 end
 
 describe "Visitants visit home, and page loads js", type: :system, js: true do
-
   it "and then, hello world" do
     visit root_path
 

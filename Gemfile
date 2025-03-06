@@ -46,11 +46,11 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'rspec-rails', '~> 6.0'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
-  gem 'cuprite'
+  gem "rspec-rails", "~> 6.0"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  gem "cuprite"
 end
 
 group :development do
