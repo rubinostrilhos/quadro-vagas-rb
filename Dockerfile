@@ -16,6 +16,9 @@ RUN apt update && apt install -y libpq-dev \
 
 RUN gem install pg
 
+# Install Chromium
+RUN apt install -y chromium
+
 ADD . /home/app/web
 WORKDIR /home/app/web
 
