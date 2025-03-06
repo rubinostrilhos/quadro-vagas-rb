@@ -1,0 +1,29 @@
+services: 
+  db:
+    image: postgres
+    environment:
+      TZ: 'America/Fortaleza'
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      TERM: xterm-256color
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    
+  web:
+    build: .
+    stdin_open: true
+    tty: true
+    command: bundle exec rails server -b 0.0.0.0
+    environment:
+      TZ: 'America/Fortaleza'
+      TERM: xterm-256color
+    env_file:
+      - './app/.env.dev'
+    volumes:
+      - .:/home/app/web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
