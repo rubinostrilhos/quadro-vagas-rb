@@ -10,13 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
+      DATABASE_HOST: localhost
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: quadro_vagas_app_test
     services:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: quadro_vagas_rb_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: quadro_vagas_app_test
         ports:
         - 5432:5432
         options: >-
