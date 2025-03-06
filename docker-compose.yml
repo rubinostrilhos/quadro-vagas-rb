@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    environment:
+      TZ: America/Sao_Paulo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: quadro_vagas_app_development
+    env_file:
+      - .env
+    volumes:
+      - database:/var/lib/postgres/data
+
+  web:
+    build: .
+    container_name: web
+    stdin_open: true
+    tty: true
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    command: bash -c "bash config/setup_app.sh"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: quadro_vagas_app_development
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_started
+
+volumes:
+  database:
