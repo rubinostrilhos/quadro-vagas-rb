@@ -1,0 +1,73 @@
+# Quadro de Vagas  
+## CI  
+
+O Quadro de Vagas é uma aplicação Rails que facilita a gestão e divulgação de vagas de emprego. Desenvolvido com Ruby on Rails, ele utiliza tecnologias modernas como Turbo, Stimulus, ImportMap e Tailwind CSS para uma experiência de usuário ágil e responsiva.  
+
+## 🚀 Funcionalidades  
+- **Cadastro de vagas**: Adicione, edite e remova vagas de emprego.   
+- **Interface moderna**: Design responsivo com Tailwind CSS.  
+- **Testes automatizados**: Testes de sistema com RSpec e Cuprite.  
+
+## 🛠️ Tecnologias Utilizadas  
+- **Ruby on Rails 8**  
+- **PostgreSQL** (banco de dados)  
+- **Tailwind CSS** (estilização)  
+- **Turbo e Stimulus** (interatividade)  
+- **ImportMap** (gerenciamento de dependências JavaScript)  
+- **RSpec** (testes)  
+- **Docker e Docker-compose** 
+
+## 📋 Pré-requisitos  
+Antes de começar, você precisará ter instalado:  
+
+- Docker e Docker Compose
+
+- Git (para clonar o repositório)
+
+## 🚀 Como Rodar o Projeto  
+
+Siga os passos abaixo para configurar e rodar o projeto localmente.  
+
+### 1. Clone o repositório  
+```bash
+git clone https://github.com/seu-usuario/quadro-vagas-rb.git  
+cd quadro-vagas-rb
+```  
+
+### 2. Configure o ambiente com Docker 
+```bash
+docker-compose up -d
+```  
+Isso irá:
+
+- Construir as imagens Docker.
+
+- Subir os contêineres do Rails e do PostgreSQL.
+
+### 3. Instale as dependências 
+Dentro do contêiner Rails, instale as gems e configure o banco de dados: 
+```bash
+docker-compose exec rails bundle install
+docker-compose exec rails rails db:create db:migrate 
+```  
+
+A aplicação estará disponível em:  
+```
+http://localhost:3000  
+```  
+
+## 🧪 Como Rodar os Testes  
+
+O projeto usa RSpec para testes. Para rodar os testes, execute:  
+```bash
+docker-compose exec rails rspec
+```  
+
+Isso irá executar todos os testes, incluindo testes de sistema com Cuprite e Chromium Headless.  
+
+## 🛠️ Linting e Análise de Código  
+
+O projeto usa Rubocop para garantir a conformidade do código Ruby. Para rodar o linting, execute:  
+```bash
+docker-compose exec rails rubocop
+```  
