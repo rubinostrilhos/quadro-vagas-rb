@@ -20,6 +20,12 @@ jobs:
         uses: ruby/setup-ruby@v1.221.0
         with:
           bundler-cache: true
+        
+      - name: Install bundler-audit
+        run: gem install bundler-audit
+
+      - name: Security audit dependencies
+        run: bundle-audit check --update
 
       - name: Run Rubocop
         run: bundle exec rubocop
