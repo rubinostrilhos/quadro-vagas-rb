@@ -16,6 +16,10 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+# Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
+gem "tailwindcss-rails"
+
+gem "foreman"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -43,6 +47,13 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rspec-rails"
+  gem "capybara"
+  gem "cuprite"
+  gem "simplecov", require: false
+  gem "factory_bot_rails"
+  gem "shoulda-matchers"
+  gem "dotenv"
 end
 
 group :development do
@@ -51,7 +62,7 @@ group :development do
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  #   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  #   gem "capybara"
   gem "selenium-webdriver"
 end
