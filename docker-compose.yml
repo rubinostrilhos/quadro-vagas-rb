@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - database:/var/lib/postgres/data
+      - db:/var/lib/postgres/data
 
   web:
     build: .
@@ -40,4 +40,4 @@ services:
         condition: service_started
 
 volumes:
-  database:
+  db:
