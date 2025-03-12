@@ -1,0 +1,13 @@
+en:
+  job_postings:
+    show:
+      details: 'Details for:'
+      company: 'Company:'
+      job_type: 'Job Type:'
+      salary: 'Salary:'
+      salary_period: 'Salary Period:'
+      back: 'Back'
+    index:
+      job: 'Job'
+      dont_have_any_job: 'No jobs have been created yet.'
+      

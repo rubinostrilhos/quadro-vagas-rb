@@ -7,11 +7,11 @@ describe "Visitor sees job posting", type: :system do
     visit root_path
     click_on job_posting.title
 
-    expect(page).to have_content("Details for: #{job_posting.title}")
-    expect(page).to have_content("Company: #{job_posting.company_profile.name}")
-    expect(page).to have_content("Salary: #{job_posting.salary} | #{job_posting.salary_currency}")
-    expect(page).to have_content("Salary Period: #{job_posting.salary_period}")
-    expect(page).to have_content("Job Type: #{job_posting.job_type.name}")
+    expect(page).to have_content("Detalhes de: #{job_posting.title}")
+    expect(page).to have_content("Empresa: #{job_posting.company_profile.name}")
+    expect(page).to have_content("Salário: #{job_posting.salary} | #{job_posting.salary_currency}")
+    expect(page).to have_content("Pagamento: #{job_posting.salary_period}")
+    expect(page).to have_content("Tipo de Trabalho: #{job_posting.job_type.name}")
   end
 
   it "and goes back to job postings list" do
@@ -22,7 +22,7 @@ describe "Visitor sees job posting", type: :system do
 
     visit root_path
     click_on node_job_posting.title
-    click_on "Back"
+    click_on "Voltar"
 
     expect(page).to have_content(node_job_posting.title)
     expect(page).to have_content(rails_job_posting.title)

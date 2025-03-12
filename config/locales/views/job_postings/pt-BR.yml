@@ -1,0 +1,13 @@
+pt-BR:
+  job_postings:
+    show:
+      details: 'Detalhes de:'
+      company: 'Empresa:'
+      job_type: 'Tipo de Trabalho:'
+      salary: 'Salário:'
+      salary_period: 'Pagamento:'
+      back: 'Voltar'
+    index:
+      job: 'Vagas'
+      dont_have_any_job: 'Ainda não foi criado nenhuma vaga.'
+      

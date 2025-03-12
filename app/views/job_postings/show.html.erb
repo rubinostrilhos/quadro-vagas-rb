@@ -1,12 +1,12 @@
 <div class="overflow-hidden rounded shadow-md text-slate-500 shadow-slate-200">
   <div class="p-6">
     <header class="mb-4">
-      <h3 class="text-xl font-medium text-slate-700">Details for: <%= @job_posting.title %></h3>
-      <p class="text-sm text-slate-400">Company: <%= @job_posting.company_profile.name %></p>
+      <h3 class="text-xl font-medium text-slate-700"><%= t('.details') %> <%= @job_posting.title %></h3>
+      <p class="text-sm text-slate-400"><%= t('.company' )%> <%= @job_posting.company_profile.name %></p>
     </header>
-    <p>Job Type: <%= @job_posting.job_type.name %></p>
-    <p>Salary: <%= @job_posting.salary %> | <%= @job_posting.salary_currency %></p>
-    <p>Salary Period: <%= @job_posting.salary_period %></p>
+    <p><%= t('.job_type') %> <%= @job_posting.job_type.name %></p>
+    <p><%= t('.salary') %> <%= @job_posting.salary %> | <%= @job_posting.salary_currency %></p>
+    <p><%= t('.salary_period') %> <%= @job_posting.salary_period %></p>
   </div>
-  <%= link_to 'Back', root_path, class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>
+  <%= link_to t('.back'), root_path, class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>
 </div>

@@ -52,6 +52,7 @@ RSpec.configure do |config|
   end
 
   include FactoryBot::Syntax::Methods
+  include TestHelper
   
   config.use_transactional_fixtures = true
 

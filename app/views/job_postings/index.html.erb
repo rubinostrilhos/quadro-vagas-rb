@@ -1,5 +1,5 @@
 <div>
-    <h1 class="text-3xl font-bold block">Vagas</h1>
+    <h1 class="text-3xl font-bold block"><%= t('.job')%></h1>
 
     <div class="my-10 flex flex-col">
         <% if @job_postings.any? %>
@@ -7,7 +7,7 @@
                 <%= link_to job.title, job_posting_path(job), class: 'text-blue-600 underline my-4' %>
             <% end %>
         <% else %>
-            <p>Ainda não foi criado nenhuma vaga.</p>
+            <p><%= t('.dont_have_any_job')%></p>
         <% end %>
     </div>
 
