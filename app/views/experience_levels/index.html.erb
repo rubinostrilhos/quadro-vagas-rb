@@ -1,0 +1,26 @@
+<div>
+  <h1> <%= t(".title") %> </h1>
+    <%= link_to '.add', new_experience_level_path, class: "text-lg text-emerald-600 font-medium underline decoration-emerald-600 transition-colors duration-300 hover:text-blue-500 hover:decoration-blue-500 focus:text-blue-500 focus:decoration-blue-500 focus:outline-none", role: "menuitem", aria: { haspopup: "false" }%>
+  <div>
+    <% unless @experience_levels.any? %>
+      <p><%= t(".no_experience_levels_available") %></p>
+    <% end %>
+    <ul class="divide-y divide-slate-100 w-full">
+      <% @experience_levels.each do |experience_level| %>
+        <li id="<%= dom_id(experience_level)%>" class="flex items-start gap-4 px-4 py-3 border-b border-slate-100">
+          <div>
+            <h4 class="w-full text-base text-slate-700"><%= experience_level.name %></h4>
+            <p class="text-slate-700">Status: <%= t(experience_level.status) %> </p>
+          </div>
+          <%= link_to t(".edit"), edit_experience_level_path(experience_level), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+
+          <% if experience_level.archived? %>
+            <%= button_to t(".active"), active_experience_level_path(experience_level), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+          <% else %>
+            <%= button_to t(".archived"), archive_experience_level_path(experience_level), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+          <% end %>    
+        <li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<%= form_with model: @experience_level, class: "flex flex-col gap-4" do |f| %>
+  <div class="relative my-6">    
+    <%= f.text_field :name, class: "relative w-full h-12 py-4 placeholder-transparent transition-all border-b outline-none focus-visible:outline-none peer border-b-slate-200 text-slate-500 autofill:bg-white focus:border-b-emerald-500 focus:outline-none invalid:focus:border-b-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400" %>
+    <%= f.label :name, class: "cursor-text peer-focus:cursor-default peer-autofill:-top-2 absolute left-0 -top-2 z-[1] text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent" %>
+    <%= form_errors @experience_level, :name %>
+  </div>
+  <div class="relative my-6 md:w-60">
+    <%= f.select :status, 
+          ExperienceLevel.statuses.map { |key, _| [t("activerecord.attributes.experience_level.statuses.#{key}"), key] }, { prompt: "" },  class: "relative w-full h-10 px-4 text-sm transition-all bg-white border-b outline-none appearance-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white focus:border-emerald-500 focus:focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400" %>
+
+    <%= f.label :status, class: "pointer-events-none absolute top-2.5 left-2 z-[1] px-2 text-sm text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-valid:-top-2 peer-valid:text-xs peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent" %>
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute top-2.5 right-2 h-5 w-5 fill-slate-400 transition-all peer-focus:fill-emerald-500 peer-disabled:cursor-not-allowed" viewBox="0 0 20 20" fill="currentColor" aria-labelledby="title-01 description-01" role="graphics-symbol">
+      <title id="title-01">Arrow Icon</title>
+      <desc id="description-01">Arrow icon of the select list.</desc>
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+  </div>
+  <%= f.submit t(".submit"), class: "hover:cursor-pointer flex w-fit items-center justify-center h-12 gap-2 px-6 text-sm font-medium tracking-wide text-white transition duration-300 rounded focus-visible:outline-none whitespace-nowrap bg-emerald-500 hover:bg-emerald-600 focus:bg-emerald-700"%>
+<% end %>
+

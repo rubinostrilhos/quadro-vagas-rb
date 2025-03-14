@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ExperienceLevel, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "#Valid?" do
+    it { should validate_presence_of(:name) }
+    it { should validate_uniqueness_of(:name) }
+    it { define_enum_for(:status) }
+  end
 end

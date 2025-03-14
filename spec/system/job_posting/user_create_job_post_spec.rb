@@ -11,7 +11,7 @@ describe 'user create job post', type: :system do
     user = create(:user)
     create(:company_profile, user: user)
     JobType.create!(name: 'Part time')
-    ExperienceLevel.create!(name: 'Junior')
+    ExperienceLevel.create!(name: 'Junior', status: :active)
 
     login_as user
 
@@ -34,6 +34,7 @@ describe 'user create job post', type: :system do
     expect(page).to have_content 'Part time'
   end
 
+
   it 'and add multiples tags', js: true do
     user = create(:user)
     create(:company_profile, user: user)
@@ -41,9 +42,7 @@ describe 'user create job post', type: :system do
     ExperienceLevel.create!(name: 'Junior')
 
     login_as user
-
     visit root_path
-
     click_on 'Anunciar vaga'
     fill_in 'Título', with: 'Desenvolvedor backend'
     select 'Mensal', from: 'Período do salário'
@@ -70,6 +69,23 @@ describe 'user create job post', type: :system do
       expect(page).to have_content 'TDD'
       expect(page).to have_content 'RSpec'
     end
+  end
+
+  it 'and can not select experience level archived', js: true do
+    user = create(:user)
+    create(:company_profile, user: user)
+    JobType.create!(name: 'Part time')
+    ExperienceLevel.create!(name: 'Junior', status: :active)
+    ExperienceLevel.create!(name: 'Pleno', status: :archived)
+
+    login_as user
+
+    visit root_path
+
+    click_on 'Anunciar vaga'
+
+    expect(page).to have_content 'Junior'
+    expect(page).not_to have_content 'Pleno'
   end
 
   it 'fail due to empty required fields' do

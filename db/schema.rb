@@ -67,6 +67,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_11_170530) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
   end
 
   create_table "job_postings", force: :cascade do |t|

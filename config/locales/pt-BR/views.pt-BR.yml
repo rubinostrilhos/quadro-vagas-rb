@@ -1,0 +1,23 @@
+pt-BR:
+  home:
+    index:
+      no_jobs_found: 'Nenhuma vaga encontrada.'
+      no_jobs_available: 'Nenhuma vaga disponível no momento.'
+  experience_levels:
+    index:
+      add: Adicionar
+      archived: Arquivar
+      active: Ativar
+      title: Níveis de Experiência
+      edit: Editar
+      no_experience_levels_available: Não há nìveis de experiência cadastradados
+    new:
+      title: Adicionar Novo Nível de Experiência
+    edit:
+      title: Editar Nível de Experiência
+    form:
+      submit: Salvar
+  shared:
+    _navbar:
+      placeholder_search: 'Pesquise aqui...'
+      experience_levels: 'Níveis de Experiência'

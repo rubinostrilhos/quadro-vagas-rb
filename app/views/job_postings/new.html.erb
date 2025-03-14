@@ -42,7 +42,7 @@
         
         <div>
             <%= f.label :experience_level_id %>
-            <%= f.collection_select :experience_level_id, ExperienceLevel.all, :id, :name, {:prompt => false}, {class: 'input'} %>
+            <%= f.collection_select :experience_level_id, ExperienceLevel.where(status: :active), :id, :name, {:prompt => false}, {class: 'input'} %>
         </div>
 
         <div>

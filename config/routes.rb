@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  resources :experience_levels, only: [ :index, :new, :create, :edit, :update ] do
+    post :active, on: :member
+    post :archive, on: :member
+  end
+
   resources :company_profiles, only: [ :show, :new, :create ]
   resources :job_postings, only: %i[ show new create ] do
     resources :tags, only: %i[ new create ]

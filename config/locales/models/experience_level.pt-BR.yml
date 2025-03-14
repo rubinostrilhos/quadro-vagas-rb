@@ -1,0 +1,15 @@
+pt-BR:
+  archived: Arquivado
+  active: Ativo
+  activerecord:
+    models:
+      experience_level:
+        one: Nìvel de Experiência
+        other: Nìveis de Experiência
+    attributes:
+      experience_level:
+        name: Nome
+        status: Status
+        statuses: 
+          archived: Arquivado
+          active: Ativo

@@ -40,6 +40,9 @@
         <div class="flex items-center gap-4">
         <% if authenticated? %>
           <li role="none" class="flex items-stretch">
+            <% if Current.user.admin? %>
+              <%= link_to t('shared._navbar.experience_levels'), experience_levels_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+            <% end %>
             <% if Current.user.company_profile %>
               <%= link_to t('.company_profile'), company_profile_path(Current.user.company_profile), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
             <% else %>
