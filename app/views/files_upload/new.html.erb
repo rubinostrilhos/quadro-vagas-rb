@@ -1,0 +1,6 @@
+<h1>Upload Arquivos</h1>
+
+<%= form_with url: files_upload_index_path, local: false, multipart: true do |form| %>
+  <%= form.file_field :file %>
+  <%= form.submit 'Enviar' %>
+<% end %>
