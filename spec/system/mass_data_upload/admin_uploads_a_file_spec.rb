@@ -26,7 +26,7 @@ describe 'Admin uploads file', type: :system do
     expect(page).to have_button('Enviar')
   end
 
-  it 'and can upload a file', js: true do
+  it 'and can upload a file, which is processed', js: true do
     user = create(:user, role: :admin)
     login_as user
 
@@ -35,7 +35,9 @@ describe 'Admin uploads file', type: :system do
     visit new_files_upload_path
     attach_file('file', file_path)
     click_button 'Enviar'
+    sleep(2)
 
-    
+    expect(ProcessFileJob).to have_been_enqueued
+    expect(page).to have_content "Arquivo enviado com sucesso. Processando arquivo..."
   end
 end

@@ -4,10 +4,17 @@ class FilesUploadController < ApplicationController
   end
 
   def create
-    file = params[:file]
+    if params[:file].present?
+      file = params[:file]
+      file_path = Rails.root.join("tmp", file.original_filename)
+      File.open(file_path, "wb") { |f| f.write(file.read) }
 
-    file_path = Rails.root.join("tmp", file.original_filename)
-    puts file_path
+      ProcessFileJob.perform_later(file_path.to_s)
+      flash[:notice] = "Arquivo enviado com sucesso. Processando arquivo..."
+    else
+      flash[:alert] = "Nenhum arquivo selecionado."
+    end
+    redirect_to new_files_upload_path
   end
 
   private
