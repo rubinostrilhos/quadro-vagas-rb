@@ -2,31 +2,65 @@ class ProcessFileJob < ApplicationJob
   queue_as :default
 
   def perform(file_path)
-    Rails.logger.info "Iniciando processamento do arquivo: #{file_path}"
-    File.foreach(file_path)  do |line|
-      line = line.strip
-      row = line.split(",")
-      row = row.map(&:strip)
+    total_lines = File.foreach(file_path).count
+    processed_lines = 0
+    success_count = 0
+    errors = []
 
-      case row[0]
-      when "U"
-        process_user(row)
-      when "E"
-        process_company(row)
-      when "V"
-        process_job(row)
-      else
-        Rails.logger.error "Linha inválida: #{row.inspect}"
+    File.foreach(file_path) do |line|
+      processed_lines += 1
+      begin
+        process_line(line)
+        success_count += 1
+      rescue => e
+        Rails.logger.error e
+        errors << { line: processed_lines, error: e.message, data: line }
       end
+
+      broadcast_progress(processed_lines, total_lines, success_count, errors)
     end
+    broadcast_completion(success_count, errors)
   end
 
   private
 
+  def process_line(line) 
+    line = line.strip
+    row = line.split(",")
+    row = row.map(&:strip)
+
+    case row[0]
+    when "U"
+      process_user(row)
+    when "E"
+      process_company(row)
+    when "V"
+      process_job(row)
+    else
+      raise StandardError.new( "#{row.inspect}")
+    end
+  end
+
+  def broadcast_progress(processed_lines, total_lines, success_count, errors)
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "processing",
+      target: "progress-container",
+      partial: "processing/progress",
+      locals: { processed_lines: processed_lines, total_lines: total_lines, success_count: success_count, errors: errors }
+    )
+  end
+
+  def broadcast_completion(success_count, errors)
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "processing",
+      target: "progress-container",
+      partial: "processing/completion",
+      locals: { success_count: success_count, errors: errors }
+    )
+  end
+
   def process_user(row)
     email_address, name, last_name = row[1], row[2], row[3]
-    Rails.logger.info "Processando usuário: #{email_address}"
-
     password = SecureRandom.alphanumeric(8)
     user = User.new(
       email_address: email_address,
@@ -36,10 +70,8 @@ class ProcessFileJob < ApplicationJob
       password_confirmation: password
     )
 
-    if user.save
-      Rails.logger.info "Usuário #{user.email_address} criado com sucesso."
-    else
-      Rails.logger.error "Erro ao criar usuário: #{user.errors.full_messages.join(', ')}"
+    unless user.save
+      raise StandardError.new("Erro ao criar usuário: #{user.errors.full_messages.join(', ')}")
     end
   end
 
@@ -48,8 +80,7 @@ class ProcessFileJob < ApplicationJob
     user = User.find_by(id: user_id)
 
     if user.nil?
-      Rails.logger.error "Usuário com ID #{user_id} não encontrado."
-      return
+      raise StandardError.new("Usuário com ID #{user_id} não encontrado.")
     end
     company = CompanyProfile.new(
       name: name,
@@ -63,10 +94,8 @@ class ProcessFileJob < ApplicationJob
       filename: "no-image.png",
       content_type: "image/png"
     )
-    if company.save!
-      Rails.logger.info("Empresa #{company.name} criada com sucesso.")
-    else
-      Rails.logger.info("Erro ao criar empresa: #{company.errors.full_messages.join(', ')}")
+    unless company.save
+      raise StandardError.new("Erro ao criar empresa: #{company.errors.full_messages.join(', ')}")
     end
   end
 
@@ -84,10 +113,8 @@ class ProcessFileJob < ApplicationJob
       experience_level_id: experience_level_id.to_i,
       company_profile_id: company_id.to_i
     )
-    if job.save
-      Rails.logger.info("Vaga de emprego #{job.title} criada com sucesso.")
-    else
-      Rails.logger.info("Erro ao criar vaga: #{job.errors.full_messages.join(', ')}")
+    unless job.save
+      raise StandardError.new("Erro ao criar vaga: #{job.errors.full_messages.join(', ')}")
     end
   end
 end

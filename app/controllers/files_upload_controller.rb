@@ -11,8 +11,11 @@ class FilesUploadController < ApplicationController
 
       ProcessFileJob.perform_later(file_path.to_s)
       flash[:notice] = "Arquivo enviado com sucesso. Processando arquivo..."
+      redirect_to processing_path
+      return
     else
       flash[:alert] = "Nenhum arquivo selecionado."
+      return
     end
     redirect_to new_files_upload_path
   end

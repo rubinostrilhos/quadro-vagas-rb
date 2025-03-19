@@ -1,0 +1,7 @@
+<h1>Acompanhamento do Processamento</h1>
+
+<div id="progress-container">
+  <%= render partial: "progress", locals: { processed_lines: 0, total_lines: 0, success_count: 0, errors: [] } %>
+</div>
+
+<%= turbo_stream_from "processing",  channel: "ProcessingChannel" %>

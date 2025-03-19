@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :files_upload, only: [ :new, :create ]
+  resource :processing, only: [ :show ], controller: "processing"
 
   resources :experience_levels, only: [ :index, :new, :create, :edit, :update ] do
     post :active, on: :member
