@@ -9,6 +9,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -26,7 +29,8 @@ Rails.application.configure do
   end
 
   # Change to :null_store to avoid any caching.
-  config.cache_store = :memory_store
+  config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"] }
+  config.action_cable.url = ENV["REDIS_URL"]
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

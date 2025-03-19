@@ -8,13 +8,30 @@ default: &default
 
 
 development:
-  <<: *default
-  database: quadrovagas-development
+  primary:
+    <<: *default
+    database: quadrovagas-development
+  queue:
+    <<: *default
+    database: quadrovagas-development-queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: quadrovagas-development-cable
+    migrations_paths: db/cable_migrate
 
 
 test:
   <<: *default
   database: quadrovagas-test
+  queue:
+    <<: *default
+    database: quadrovagas-test-queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: quadrovagas-test-cable
+    migrations_paths: db/cable_migrate
 
 production:
   <<: *default

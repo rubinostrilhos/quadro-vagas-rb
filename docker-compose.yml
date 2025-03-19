@@ -6,12 +6,14 @@ services:
       - 3000:3000
     depends_on:
       - database
+      - redis
     volumes:
       - .:/app
     environment:
       - DB_HOST=database
       - DB_PASSWORD=postgres
       - DB_USERNAME=postgres
+      - REDIS_URL=redis://redis:6379/1
   database:
     image: postgres:17.4
     volumes:
@@ -19,6 +21,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
 
 volumes:
   pgdata:
+  redis_data:
