@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :bulk_upload do
-    status { 1 }
-    total_lines { 1 }
-    errors_count { 1 }
-    file { "MyString" }
-    user { nil }
+    status { 0 }
+    total_lines { 3 }
+    errors_count { 0 }
+    file { File.open(Rails.root.join('spec/support/files/script.txt'), filename: 'script.txt') }
+    association :user
   end
 end
