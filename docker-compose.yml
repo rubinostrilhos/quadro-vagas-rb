@@ -19,6 +19,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis:7.4.2
+    ports:
+      - '6379:6379'
 
 volumes:
   pgdata:

@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <h1>Registre usuários, empresas e vagas a partir de um simples arquivo</h1>
+  </div>
+  <br>
+  <div>
+    <%= form_with model: @imported_file do |f| %>
+      <div>
+        <%= f.label :name, 'Nome' %>
+        <%= f.text_field :name, class: 'input' %>
+      </div>
+      <br>
+      <div>
+        <%= f.label :file, 'Arquivo' %>
+        <%= f.file_field :file, class: "block w-50 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50", accept: ".csv, .txt" %>
+        <p class="mt-1 text-sm text-gray-900 " id="file_input_help">CSV, TXT.</p>
+      </div>
+      <div>
+        <%= f.submit 'Enviar', class: "button-submit" %>
+      </div>
+    <% end %>
+</div>
+

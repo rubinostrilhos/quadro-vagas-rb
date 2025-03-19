@@ -1,0 +1,21 @@
+<div id="file_report_<%= imported_file.id %>">
+  <span class="flex gap-2">
+    <h2>Linhas processadas:</h2> <%= imported_file.lines_count %> / <%= imported_file.lines_total %>
+    
+  </span>
+  <div>
+    <p>Novos Usuários: <%= imported_file.user_created %></p>
+    <p>Novos Perfis de Empresa: <%= imported_file.company_profile_created %></p>
+    <p>Novas Vagas: <%= imported_file.job_posting_created %></p>
+  </div>
+  <br>
+  <div>
+    <h1>Erros: <%= imported_file.error_reports.size %></h1>
+    <div>
+      <% if imported_file.done? %>
+        <%= link_to "Baixar relatório de erros", imported_file_download_errors_path(imported_file, format: :csv), class: "button-submit" %>
+      <% end %>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,9 @@
+<div>
+  <div>
+    <h1><%= @imported_file.file_name %></h1>
+  </div>
+  <div>
+    <%= turbo_stream_from "imported_file_#{@imported_file.id}"%>
+    <%= render 'imported_file', imported_file: @imported_file %>
+  </div>
+</div>

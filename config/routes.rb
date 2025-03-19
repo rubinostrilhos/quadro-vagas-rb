@@ -27,4 +27,8 @@ Rails.application.routes.draw do
     resources :tags, only: %i[ new create ]
   end
   get "search", to: "home#search", as: :search_jobs, param: :query
+
+  resources :imported_files, only: %i[ new create show ] do
+    get "download_errors", to: "imported_files#download_errors_file"
+  end
 end

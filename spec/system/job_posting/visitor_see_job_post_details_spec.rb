@@ -15,9 +15,9 @@ describe "Visitor sees job posting", type: :system do
   end
 
   it "and goes back to job postings list" do
-    node_job_posting = create(:job_posting)
+    node_job_posting = create(:job_posting, title: 'Dev Node')
     second_user = create(:user, email_address: 'second@user.com')
-    second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
+    second_company = create(:company_profile, name: 'Empresa Dev', user: second_user, contact_email: 'second@company.com')
     rails_job_posting = create(:job_posting, company_profile: second_company)
 
     visit root_path

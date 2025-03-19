@@ -6,16 +6,29 @@ default: &default
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
 
-
 development:
-  <<: *default
-  database: quadrovagas-development
-
+  primary:
+    <<: *default
+    database: quadrovagas-development
+  queue:
+    <<: *default
+    database: quadrovagas-development-queue
+    migrations_paths: db/queue_migrate
 
 test:
-  <<: *default
-  database: quadrovagas-test
+  primary:
+    <<: *default
+    database: quadrovagas-test
+  queue:
+    <<: *default
+    database: quadrovagas-test-queue
+    migrations_paths: db/queue_migrate
 
 production:
-  <<: *default
-  database: quadrovagas-production
+  primary: &primary_production
+    <<: *default
+    database: quadrovagas-production
+  queue:
+    <<: *primary_production
+    database: quadrovagas-production
+    migrations_paths: db/queue_migrate

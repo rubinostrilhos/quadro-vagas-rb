@@ -3,10 +3,13 @@
 # not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
 # to make the web console appear.
 development:
-  adapter: async
+  adapter: redis
+  url: redis://redis:6379/1
+
 
 test:
-  adapter: test
+  adapter: redis
+  url: redis://redis:6379/2
 
 production:
   adapter: solid_cable

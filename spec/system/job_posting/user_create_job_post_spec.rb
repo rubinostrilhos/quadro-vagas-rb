@@ -39,7 +39,7 @@ describe 'user create job post', type: :system do
     user = create(:user)
     create(:company_profile, user: user)
     JobType.create!(name: 'Part time')
-    ExperienceLevel.create!(name: 'Junior')
+    ExperienceLevel.create!(name: 'Junior', status: :active)
 
     login_as user
     visit root_path

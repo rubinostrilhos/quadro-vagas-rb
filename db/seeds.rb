@@ -11,7 +11,7 @@ User.delete_all
 end
 
 [ "Intern", "Junior", "Mid level", "Senior" ].each do |experience_level|
-  ExperienceLevel.create!(name: experience_level)
+  ExperienceLevel.create!(name: experience_level, status: :active)
 end
 
 # Creates three users
