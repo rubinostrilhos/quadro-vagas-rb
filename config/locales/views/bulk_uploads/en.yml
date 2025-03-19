@@ -1,0 +1,11 @@
+pt-BR:
+  bulk_uploads:
+    show:
+      title: Bulk upload status
+    new:
+      title: Bulk Upload
+    status_details:
+      processed: Processed
+      success: Successful
+      errors: Errors
+      errors_list: Errors list

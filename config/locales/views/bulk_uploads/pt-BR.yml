@@ -1,0 +1,11 @@
+pt-BR:
+  bulk_uploads:
+    show:
+      title: Status do upload
+    new:
+      title: Upload em massa
+    status_details:
+      processed: Processados
+      success: Sucesso
+      errors: Erros
+      errors_list: Lista de erros
