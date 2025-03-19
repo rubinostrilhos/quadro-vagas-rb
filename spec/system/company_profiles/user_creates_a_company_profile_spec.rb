@@ -10,14 +10,14 @@ describe 'Registered user tries to access the page to create a company profile',
 
   it 'and succeeds', js: true do
     user = create(:user)
+
+    Current.session = user.sessions.create!
+    request = ActionDispatch::Request.new(Rails.application.env_config)
+    cookies = request.cookie_jar
+    cookies.signed[:session_id] = { value: Current.session.id, httponly: true, same_site: :lax }
+
     visit root_path
 
-    click_on 'Entrar'
-    fill_in 'Enter your email address', with: user.email_address
-    fill_in 'Enter your password', with: user.password
-    within '#login_form' do
-      click_on 'Sign in'
-    end
     click_on 'Perfil da Empresa'
     fill_in 'Nome', with: 'BlinkedOn'
     fill_in 'URL do Site', with: 'https://blinkedon.tech'
@@ -35,14 +35,14 @@ describe 'Registered user tries to access the page to create a company profile',
 
   it 'and fails when informing invalid data', js: true do
     user = create(:user)
+
+    Current.session = user.sessions.create!
+    request = ActionDispatch::Request.new(Rails.application.env_config)
+    cookies = request.cookie_jar
+    cookies.signed[:session_id] = { value: Current.session.id, httponly: true, same_site: :lax }
+
     visit root_path
 
-    click_on 'Entrar'
-    fill_in 'Enter your email address', with: user.email_address
-    fill_in 'Enter your password', with: user.password
-    within '#login_form' do
-      click_on 'Sign in'
-    end
     click_on 'Perfil da Empresa'
     fill_in 'Nome', with: ''
     fill_in 'URL do Site', with: 'https://blinkedon.tech'
