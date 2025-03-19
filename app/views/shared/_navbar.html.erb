@@ -51,6 +51,7 @@
               <% if admin? %>
                 <%= link_to User.model_name.human(count: 2), users_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
                 <%= link_to t('.experience_levels'), experience_levels_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+                <%= link_to 'Uploads em massa', new_bulk_upload_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
               <% end %>
             </li>
 
