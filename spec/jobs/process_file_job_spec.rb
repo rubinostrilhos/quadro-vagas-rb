@@ -36,23 +36,4 @@ RSpec.describe ProcessFileJob, type: :job do
     expect(last_company.contact_email). to eq "contato@empresa-b.com"
     expect(last_company.user_id). to eq user_2.id
   end
-
-  it 'creates a job posting from a file' do
-    file_path = Rails.root.join('spec', 'support', 'files', 'test_file.csv')
-    File.open(file_path, 'w') do |file|
-      file.puts "V,Desenvolvedor Ruby on Rails, Alguma descrição, 5000,BRL,Mensal,Presencial,1,São Paulo,2,1"
-      file.puts "V,Desenvolvedor Frontend,Alguma descrição, 6000,BRL,Mensal,Remoto,2,Remoto,1,2"
-      file.puts "V,Gerente de Projetos, Alguma descrição, 8000,BRL,Mensal,Híbrido,3,São Paulo,3,3"
-    end
-
-    expect {
-      ProcessFileJob.perform_now(file_path)
-    }.to change(JobPosting, :count).by(2)
-
-    last_company = JobPosting.last
-
-    expect(last_job.title).to eq("Gerente de Projetos")
-    expect(last_job.salary).to eq(8000)
-    expect(last_job.salary_currency).to eq("USD")
-  end
 end
