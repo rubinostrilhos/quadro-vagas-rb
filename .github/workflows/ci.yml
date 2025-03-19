@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_js:
@@ -51,6 +51,15 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -58,10 +67,9 @@ jobs:
 
       - name: Set up gems
         run: |
-            bundle install
-            apt update -y
-            apt install chromium -y
-            
+          bundle install
+          apt update -y
+          apt install chromium -y
 
       - name: Setup Rails DB
         run: bin/rails db:setup
@@ -76,4 +84,4 @@ jobs:
           DB_HOST: postgres
           DB_USERNAME: postgres
           DB_PASSWORD: postgres
-
+          REDIS_URL: redis://redis:6379/1
