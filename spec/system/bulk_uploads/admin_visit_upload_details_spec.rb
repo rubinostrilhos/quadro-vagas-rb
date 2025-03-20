@@ -56,8 +56,8 @@ describe 'User visits upload details', type: :system do
     expect(page).to have_content("Sucesso: 2")
     expect(page).to have_content("Erros: 1")
     expect(page).to have_content("Linha 3: Experience level é obrigatório(a)")
-    expect(page).to have_content("Linha 3: Job type é obrigatório(a)")
-    expect(page).to have_content("Linha 3: Company profile é obrigatório(a)")
-    expect(page).to have_content("Linha 3: Company profile não pode ficar em branco")
+    expect(page).to have_content("Linha 3: Tipo de trabalho é obrigatório")
+    expect(page).to have_content("Linha 3: Empresa é obrigatório(a)")
+    expect(page).to have_content("Linha 3: Empresa não pode ficar em branco")
   end
 end
