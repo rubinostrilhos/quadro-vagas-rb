@@ -37,6 +37,10 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  config.include ActiveJob::TestHelper, type: :job
+
+  config.use_transactional_fixtures = true
+
   config.before(:each, type: :system) do
     driven_by(:rack_test)
   end
