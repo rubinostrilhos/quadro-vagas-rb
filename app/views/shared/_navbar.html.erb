@@ -42,7 +42,7 @@
             <li role="none" class="flex items-stretch">
               <% if Current.user.company_profile %>
                 <%= link_to t('.company_profile'), company_profile_path(Current.user.company_profile), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
-                <%= link_to t("shared.navbar.new_job_post"), new_job_posting_path, class: "py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"%>
+                <%= link_to t(".new_job_post"), new_job_posting_path, class: "py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"%>
               <% else %>
                 <%= link_to t('.company_profile'), new_company_profile_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
               <% end %>
@@ -51,7 +51,7 @@
               <% if admin? %>
                 <%= link_to User.model_name.human(count: 2), users_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
                 <%= link_to t('.experience_levels'), experience_levels_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
-                <%= link_to 'Uploads em massa', new_bulk_upload_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+                <%= link_to t('.data_upload'), new_bulk_upload_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
               <% end %>
             </li>
 

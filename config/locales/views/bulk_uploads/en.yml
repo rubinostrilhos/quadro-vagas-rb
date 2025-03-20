@@ -4,6 +4,7 @@ pt-BR:
       title: Bulk upload status
     new:
       title: Bulk Upload
+      file: File
     status_details:
       processed: Processed
       success: Successful

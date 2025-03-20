@@ -4,6 +4,7 @@ pt-BR:
       title: Status do upload
     new:
       title: Upload em massa
+      file: Arquivo
     status_details:
       processed: Processados
       success: Sucesso
