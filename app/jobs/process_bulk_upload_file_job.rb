@@ -10,7 +10,6 @@ class ProcessBulkUploadFileJob < ApplicationJob
 
     redis_keys = {
       processed: "bulk-upload-#{bulk_upload.id}-processed-lines",
-      remaining: "bulk-upload-#{bulk_upload.id}-remaining-lines",
       successful: "bulk-upload-#{bulk_upload.id}-successful",
       error_count: "bulk-upload-#{bulk_upload.id}-errors-count",
       error_details: "bulk-upload-#{bulk_upload.id}-errors-details"
@@ -18,13 +17,14 @@ class ProcessBulkUploadFileJob < ApplicationJob
 
     redis_client.mset(
       redis_keys[:processed], 0,
-      redis_keys[:remaining], lines.size,
       redis_keys[:successful], 0,
       redis_keys[:error_count], 0,
       redis_keys[:error_details], [].to_json
     )
 
     lines.each_with_index { |line, index| ProcessBulkUploadDataJob.perform_later(bulk_upload.id, index, line) }
+
+    bulk_upload.update(status: 20)
 
     File.delete(file_path) if File.exist?(file_path)
   end

@@ -39,7 +39,6 @@ class BulkUploadsController < ApplicationController
 
     @bulk_upload = BulkUpload.find_by(id: bulk_upload_id)
     @processed = redis.get("bulk-upload-#{bulk_upload_id}-processed-lines").to_i
-    @remaining = redis.get("bulk-upload-#{bulk_upload_id}-remaining-lines").to_i
     @successful = redis.get("bulk-upload-#{bulk_upload_id}-successful").to_i
     @errors = redis.get("bulk-upload-#{bulk_upload_id}-errors-count").to_i
     @errors_details = JSON.parse(redis.get("bulk-upload-#{bulk_upload_id}-errors-details") || "[]")

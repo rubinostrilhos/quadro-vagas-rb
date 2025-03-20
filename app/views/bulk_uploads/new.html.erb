@@ -3,7 +3,7 @@
 
   <%= form_with url: bulk_uploads_path, class: "space-y-4" do |f| %>
     <div>
-      <%= f.label :file, t('.upload_file'), class: "block mb-2 text-sm font-medium text-gray-700" %>
+      <%= f.label :file, t('.file'), class: "block mb-2 text-sm font-medium text-gray-700" %>
       <%= f.file_field :file, class: 'w-full text-sm text-gray-700 border border-gray-300 rounded-md file:mr-4 file:py-2 file:px-4 file:border-none
             file:bg-blue-500 file:text-white hover:file:bg-blue-600 cursor-pointer transition-all duration-300' %>
     </div>

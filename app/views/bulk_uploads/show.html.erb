@@ -3,6 +3,6 @@
   <%= turbo_stream_from "bulk_uploads" %>
 
   <div id="upload_status_<%= @bulk_upload.id %>" class="mt-4 w-[450px]">
-    <%= render partial: "status_details", locals: { total_lines: @bulk_upload.total_lines, processed: @processed, remaining: @remaining, errors_details: @errors_details, successful: @successful, errors: @errors, total: @processed + @remaining } %>
+    <%= render partial: "status_details", locals: { total_lines: @bulk_upload.total_lines, processed: @processed, errors_details: @errors_details, successful: @successful, errors: @errors } %>
   </div>
 </div>
