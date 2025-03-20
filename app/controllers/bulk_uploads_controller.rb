@@ -35,13 +35,12 @@ class BulkUploadsController < ApplicationController
   def show
     redis = Redis.new(url: ENV["REDIS_URL"])
 
-    bulk_upload_id = params[:id]
+    @bulk_upload = BulkUpload.find_by(id: params[:id])
 
-    @bulk_upload = BulkUpload.find_by(id: bulk_upload_id)
-    @processed = redis.get("bulk-upload-#{bulk_upload_id}-processed-lines").to_i
-    @successful = redis.get("bulk-upload-#{bulk_upload_id}-successful").to_i
-    @errors = redis.get("bulk-upload-#{bulk_upload_id}-errors-count").to_i
-    @errors_details = JSON.parse(redis.get("bulk-upload-#{bulk_upload_id}-errors-details") || "[]")
+    @processed = redis.get("bulk-upload-#{@bulk_upload.id}-processed-lines").to_i
+    @successful = redis.get("bulk-upload-#{@bulk_upload.id}-successful").to_i
+    @errors = redis.get("bulk-upload-#{@bulk_upload.id}-errors-count").to_i
+    @errors_details = JSON.parse(redis.get("bulk-upload-#{@bulk_upload.id}-errors-details") || "[]")
   end
 
   private
