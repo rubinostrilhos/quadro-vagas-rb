@@ -27,7 +27,7 @@ describe "Visitor sees job postings", type: :system do
     expect(page).not_to have_content("Nenhuma vaga disponível no momento.")
   end
 
-  it "and cant see inactive job postings" do
+  it "and cant see job postings of inactive user" do
     first_user = create(:user, status: :active)
     first_company = create(:company_profile, name: "Ruby on cloud", website_url: "http://rubyoncloud.com", contact_email: "contact@rubyoncloud.com", user: first_user)
     second_user = create(:user, email_address: 'second@user.com', status: :inactive)
@@ -35,6 +35,18 @@ describe "Visitor sees job postings", type: :system do
     job_type = create(:job_type, name: 'Júnior')
     create(:job_posting, title: "Dev Rails", description: "Software Developer", company_profile: first_company, job_type: job_type)
     create(:job_posting, title: "Dev Node", company_profile: second_company, job_type: job_type)
+
+    visit root_path
+
+    expect(page).to have_content("Dev Rails")
+    expect(page).not_to have_content("Dev Node")
+  end
+
+  it "and cant see archived job postings" do
+    user = create(:user)
+    company = create(:company_profile, name: "Ruby on cloud", website_url: "http://rubyoncloud.com", contact_email: "contact@rubyoncloud.com", user: user)
+    create(:job_posting, title: "Dev Rails", description: "Software Developer", company_profile: company)
+    create(:job_posting, title: "Dev Node", company_profile: company, own_status: :archived)
 
     visit root_path
 

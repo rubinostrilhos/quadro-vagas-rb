@@ -17,20 +17,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  resources :experience_levels, only: [ :index, :new, :create, :edit, :update ] do
-    post :active, on: :member
-    post :archive, on: :member
-  end
-
   resources :users, only: [ :index ] do
     member do
       patch :toggle_status
     end
   end
 
-  resources :company_profiles, only: [ :show, :new, :create ]
-  resources :job_postings, only: %i[ show new create ] do
+  resources :job_postings, only: %i[ index show new create edit update] do
     resources :tags, only: %i[ new create ]
   end
+  resources :company_profiles, only: [ :show, :new, :create ]
+  resources :experience_levels, only: [ :index, :new, :create, :edit, :update ] do
+    post :active, on: :member
+    post :archive, on: :member
+  end
+
   get "search", to: "home#search", as: :search_jobs, param: :query
 end

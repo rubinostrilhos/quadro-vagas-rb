@@ -3,7 +3,11 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting, only: %i[ show ]
   before_action :check_inactive_job_posting, only: %i[ show ]
 
-  def show; end
+  def index
+    @job_postings = Current.user.job_postings.page(params[:page]).per(10)
+  end
+
+  def show;end
 
   def new
     @job_posting = JobPosting.new

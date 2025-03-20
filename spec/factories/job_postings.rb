@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:title) { |n| "Job Title #{n}" }
     company_profile
     sequence(:salary) { |n| "Salary #{n}" }
+    own_status { 0 }
     salary_currency { :usd }
     salary_period { :monthly }
     work_arrangement { :remote }

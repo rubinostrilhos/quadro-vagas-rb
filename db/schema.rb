@@ -82,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_164123) do
     t.integer "work_arrangement"
     t.bigint "experience_level_id", null: false
     t.string "job_location"
+    t.integer "own_status", default: 0, null: false
     t.index ["company_profile_id"], name: "index_job_postings_on_company_profile_id"
     t.index ["experience_level_id"], name: "index_job_postings_on_experience_level_id"
     t.index ["job_type_id"], name: "index_job_postings_on_job_type_id"

@@ -30,7 +30,9 @@ pt-BR:
           weekly: Semanal
           monthly: Mensal
           yearly: Anual
-
+        own_status:
+          active: 'Ativo'
+          archived: 'Arquivado'
         tag_list: Tag  
   errors:
     maximum_tag_error: Essa vaga já possui o máximo de tags

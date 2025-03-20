@@ -7,6 +7,7 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.14"
 gem "importmap-rails"
 gem "jbuilder"
+gem "kaminari", "~> 1.2"
 gem "pg"
 gem "pg_search"
 gem "propshaft"

@@ -3,6 +3,7 @@ class CompanyProfile < ApplicationRecord
   has_many :job_postions, dependent: :destroy
 
   has_one_attached :logo
+  has_many :job_postings
 
   delegate :status, to: :user
 

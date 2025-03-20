@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      job_posting: Job Posting
+    attributes:
+      job_posting:
+        status: 
+          active: 'Active'
+          archived: 'Archived'
+        
