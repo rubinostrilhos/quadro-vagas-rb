@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      company_profile:
+        one: Company Profile
+        other: Company Profiles
+    attributes:
+      company_profile:
+        name: Name
+        contact_email: Contact Email
+        website_url: Website URL
+        logo: Logo
+  errors:
+    messages:
+      invalid_image_format: 'must be an image in one of the following formats: JPG, JPEG or PNG.'
+      invalid_email_equals_user_email: 'must not be equal to your own user email address'
+      invalid_email_already_registered: 'is already in use, please inform a different email'
+      invalid_url_format: 'must be a valid URL (should start with http:// or https://, have a dot separating the domain parts, and end with a valid extension of 2 to 6contact_email_is_not_equal_to_user_email characters)'

@@ -1,6 +1,6 @@
 class CompanyProfile < ApplicationRecord
   belongs_to :user
-  has_many :job_postings, dependent: :destroy
+  has_many :job_postions, dependent: :destroy
 
   has_one_attached :logo
 

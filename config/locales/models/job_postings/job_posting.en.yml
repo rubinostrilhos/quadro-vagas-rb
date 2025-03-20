@@ -1,0 +1,36 @@
+en:
+  activerecord:
+    models:
+      job_posting:
+        one: Job Posting
+        other: Job Postings
+    attributes:
+      job_posting:
+        title: Title
+        job_type_id: Job Type
+        job_type: Job Type
+        salary: Salary
+        salary_currency: Salary Currency
+        salary_period: Salary Period
+        description: Description
+        experience_level_id: Experience Level
+        work_arrangement: Work Arrangement
+        job_location: Job Location
+        company_profile: Company
+        salary_currencies:
+          usd: USD
+          eur: EUR
+          brl: BRL
+        work_arrangements:
+          remote: Remote
+          hybrid: Hybrid
+          in_person: In Person
+        salary_periods:
+          daily: Daily
+          weekly: Weekly
+          monthly: Monthly
+          yearly: Yearly
+        tag_list: Tag 
+  errors:
+    maximum_tag_error: This job posting already has maximum tags
+    tag_must_be_unique: Tag must be unique

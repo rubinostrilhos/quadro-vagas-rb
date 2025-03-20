@@ -1,0 +1,15 @@
+en:
+  experience_levels:
+    index:
+      add: Add
+      archived: archive
+      active: active
+      title: Experience Levels
+      edit: Edit
+      no_experience_levels_available: Not found
+    new:
+      title: Add a new Experience Level
+    edit:
+      title: Edit a Experience Level
+    form:
+      submit: Save

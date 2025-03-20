@@ -1,8 +1,14 @@
 en:
   job_postings:
+    show:
+      back: "Back"
     new:
       title: "Post a Job"
       submit: "Submit"
       select:
         work_arrangement: "Select work arrangement"
         salary_period: "Select salary period"
+      tag: "Tags"
+    create:
+      failure: "Failed to create a job posting"
+      success: "Job Posting created successfully"

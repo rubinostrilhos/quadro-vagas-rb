@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :company_profile do
     association :user
     name { "BlinkedOn" }
-    website_url { "https://blinkedon.tech" }
-    contact_email { "contact@blinkedon.tech" }
+    sequence(:contact_email) { |n| "contact#{n}@blinkedon.tech" }
+    sequence(:website_url) { |n| "https://blinkedon#{n}.tech" }
     logo { File.open(Rails.root.join('spec/support/files/logo.jpg'), filename: 'logo.jpg') }
   end
 end

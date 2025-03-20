@@ -42,13 +42,25 @@
         
         <div>
             <%= f.label :experience_level_id %>
-            <%= f.collection_select :experience_level_id, ExperienceLevel.where(status: :active), :id, :name, {:prompt => false}, {class: 'input'} %>
+            <%= f.collection_select :experience_level_id, ExperienceLevel.active, :id, :name, {:prompt => false}, {class: 'input'} %>
         </div>
 
         <div>
             <%= f.label :job_location%>
             <%= f.text_field :job_location,  class: "input"%>
             <%= form_errors @job_posting, :job_location %>
+        </div>
+
+        <div>
+            <h2><%= t(".tag") %></h2>
+            <div data-controller="tags" class="flex flex-1 gap-2">
+                <div id="new_tags_fields" data-tags-target="newTags" class="w-full"></div>
+                <div class="mt-2 mb-2">
+                    <button type="button" data-action="click->tags#addTag" data-tags-target="btn" class="hover:cursor-pointer">
+                        <%= image_tag 'plus.svg', class: 'w-8', title: 'Nova tag', id: 'new_field_tag' %>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div>
