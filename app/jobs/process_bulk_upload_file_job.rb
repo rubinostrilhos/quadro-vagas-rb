@@ -24,8 +24,6 @@ class ProcessBulkUploadFileJob < ApplicationJob
 
     lines.each_with_index { |line, index| ProcessBulkUploadDataJob.perform_later(bulk_upload.id, index, line) }
 
-    bulk_upload.update(status: 20)
-
     File.delete(file_path) if File.exist?(file_path)
   end
 end

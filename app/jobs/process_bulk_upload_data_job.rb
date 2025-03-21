@@ -21,6 +21,10 @@ class ProcessBulkUploadDataJob < ApplicationJob
 
     redis.incr("bulk-upload-#{bulk_upload.id}-processed-lines")
 
+    if bulk_upload.total_lines == redis.get("bulk-upload-#{bulk_upload.id}-processed-lines").to_i
+      bulk_upload.update(status: 20, successful_lines: redis.get("bulk-upload-#{bulk_upload.id}-successful").to_i)
+    end
+
     Turbo::StreamsChannel.broadcast_update_to(
       "bulk_uploads",
       target: "upload_status_#{bulk_upload.id}",
