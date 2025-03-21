@@ -4,7 +4,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'correctly enqueues the job' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create(total_lines: 1, user: admin_user)
-    line = "U,usuario@example.com,Nome,Sobrenome,senha123"
+    line = "U,usuario@example.com,Nome,Sobrenome"
 
     expect {
       ProcessBulkUploadDataJob.perform_later(bulk_upload.id, 0, line)
@@ -14,7 +14,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'creates a user successfully' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create(total_lines: 1, user: admin_user)
-    line = "U,usuario@example.com,Nome,Sobrenome,senha123"
+    line = "U,usuario@example.com,Nome,Sobrenome"
 
     expect {
       ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, line)
@@ -50,7 +50,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'correctly updates counters in Redis' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create(total_lines: 1, user: admin_user)
-    line = "U,usuario@example.com,Nome,Sobrenome,senha123"
+    line = "U,usuario@example.com,Nome,Sobrenome"
     redis = Redis.new(url: ENV["REDIS_URL"])
 
     redis.set("bulk-upload-#{bulk_upload.id}-processed-lines", 0)
@@ -67,7 +67,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'logs an error when data is invalid' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create(total_lines: 1, user: admin_user)
-    line = "U,,Nome,Sobrenome,senha123"
+    line = "U,,Nome,Sobrenome"
 
     redis = Redis.new(url: ENV["REDIS_URL"])
     redis.set("bulk-upload-#{bulk_upload.id}-errors-details", [].to_json)
@@ -82,7 +82,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'updates bulk upload error count correctly' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create!(total_lines: 1, user: admin_user)
-    line = "U,,Nome,Sobrenome,senha123"
+    line = "U,,Nome,Sobrenome"
 
     expect {
       ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, line)
@@ -92,7 +92,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
   it 'logs errors in BulkUploadError model' do
     admin_user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create!(total_lines: 1, user: admin_user)
-    line = "U,,Nome,Sobrenome,senha123"
+    line = "U,,Nome,Sobrenome"
 
     expect {
       ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, line)
@@ -112,7 +112,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
 
     redis.set("bulk-upload-#{bulk_upload.id}-processed-lines", 0)
 
-    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome,senha123")
+    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome")
 
     expect(redis.get("bulk-upload-#{bulk_upload.id}-processed-lines").to_i).to eq(1)
   end
@@ -122,7 +122,7 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
     bulk_upload = BulkUpload.create!(total_lines: 1, user: admin_user)
     allow(Turbo::StreamsChannel).to receive(:broadcast_update_to)
 
-    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome,senha123")
+    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome")
 
     expect(Turbo::StreamsChannel).to have_received(:broadcast_update_to).with(
       "bulk_uploads",
@@ -144,5 +144,28 @@ RSpec.describe ProcessBulkUploadDataJob, type: :job do
     expect(error_log.bulk_upload_id).to eq(bulk_upload.id)
     expect(error_log.line).to eq(1)
     expect(error_log.message).to eq("Linha inválida")
+  end
+
+  it 'updates bulk upload successful lines' do
+    user = create(:user, role: :admin)
+    bulk_upload = BulkUpload.create(status: 0, total_lines: 1, user: user)
+    redis = Redis.new(url: ENV["REDIS_URL"])
+    redis.set("bulk-upload-#{bulk_upload.id}-processed-lines", 0)
+    redis.set("bulk-upload-#{bulk_upload.id}-successful", 0)
+
+    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome")
+
+    expect(bulk_upload.reload.successful_lines).to eq(1)
+  end
+
+  it 'updates bulk upload status to completed' do
+    user = create(:user, role: :admin)
+    bulk_upload = BulkUpload.create(status: 0, total_lines: 1, user: user)
+    redis = Redis.new(url: ENV["REDIS_URL"])
+    redis.set("bulk-upload-#{bulk_upload.id}-processed-lines", 0)
+
+    ProcessBulkUploadDataJob.perform_now(bulk_upload.id, 0, "U,usuario@example.com,Nome,Sobrenome")
+
+    expect(bulk_upload.reload.status).to eq("completed")
   end
 end

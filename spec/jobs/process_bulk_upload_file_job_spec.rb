@@ -6,9 +6,9 @@ RSpec.describe ProcessBulkUploadFileJob, type: :job do
     file_path = Rails.root.join('spec/support/files/script.txt')
 
     File.open(file_path, "w") do |file|
-      file.puts "U,usuario@example.com,Nome,Sobrenome,senha123"
-      file.puts "E,Empresa X,https://empresa-x.com,contato@empresa-x.com,1"
-      file.puts "V,Desenvolvedor,5000,BRL,Mensal,Presencial,1,São Paulo,1,1,Descrição"
+      file.puts "U,gabriel@toledo.com,Gabriel,Toledo,1"
+      file.puts "E,Microsoft,https://microsoft.com,microsoft@email.com,1"
+      file.puts "V,Dev Junior,Alguma descrição,5000,brl,Mensal,Remoto,2,Remoto,1,1"
     end
 
     expect {
@@ -24,9 +24,9 @@ RSpec.describe ProcessBulkUploadFileJob, type: :job do
     file_path = Rails.root.join('spec/support/files/script.txt')
 
     File.open(file_path, "w") do |file|
-      file.puts "U,usuario@example.com,Nome,Sobrenome,senha123"
-      file.puts "E,Empresa X,https://empresa-x.com,contato@empresa-x.com,1"
-      file.puts "V,Desenvolvedor,5000,BRL,Mensal,Presencial,1,São Paulo,1,1,Descrição"
+      file.puts "U,gabriel@toledo.com,Gabriel,Toledo,1"
+      file.puts "E,Microsoft,https://microsoft.com,microsoft@email.com,1"
+      file.puts "V,Dev Junior,Alguma descrição,5000,brl,Mensal,Remoto,2,Remoto,1,1"
     end
 
     expect {
@@ -36,20 +36,20 @@ RSpec.describe ProcessBulkUploadFileJob, type: :job do
     File.delete(file_path) if File.exist?(file_path)
   end
 
-  it 'updates bulk upload status to processing and completed' do
+  it 'updates bulk upload status to processing' do
     user = create(:user, role: :admin)
     bulk_upload = BulkUpload.create(status: 0, total_lines: 3, user: user)
     file_path = Rails.root.join('spec/support/files/script.txt')
 
     File.open(file_path, "w") do |file|
-      file.puts "U,usuario@example.com,Nome,Sobrenome,senha123"
-      file.puts "E,Empresa X,https://empresa-x.com,contato@empresa-x.com,1"
-      file.puts "V,Desenvolvedor,5000,BRL,Mensal,Presencial,1,São Paulo,1,1,Descrição"
+      file.puts "U,gabriel@toledo.com,Gabriel,Toledo,1"
+      file.puts "E,Microsoft,https://microsoft.com,microsoft@email.com,1"
+      file.puts "V,Dev Junior,Alguma descrição,5000,brl,Mensal,Remoto,2,Remoto,1,1"
     end
 
     ProcessBulkUploadFileJob.perform_now(bulk_upload.id, file_path.to_s)
 
-    expect(bulk_upload.reload.status).to eq("completed")
+    expect(bulk_upload.reload.status).to eq("processing")
 
     File.delete(file_path) if File.exist?(file_path)
   end
@@ -60,9 +60,9 @@ RSpec.describe ProcessBulkUploadFileJob, type: :job do
     file_path = Rails.root.join('spec/support/files/script.txt')
 
     File.open(file_path, "w") do |file|
-      file.puts "U,usuario@example.com,Nome,Sobrenome,senha123"
-      file.puts "E,Empresa X,https://empresa-x.com,contato@empresa-x.com,1"
-      file.puts "V,Desenvolvedor,5000,BRL,Mensal,Presencial,1,São Paulo,1,1,Descrição"
+      file.puts "U,gabriel@toledo.com,Gabriel,Toledo,1"
+      file.puts "E,Microsoft,https://microsoft.com,microsoft@email.com"
+      file.puts "V,Dev Junior,Alguma descrição,5000,brl,Mensal,Remoto,2,Remoto,1,1"
     end
 
     ProcessBulkUploadFileJob.perform_now(bulk_upload.id, file_path.to_s)
