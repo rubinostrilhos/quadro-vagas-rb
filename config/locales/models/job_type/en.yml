@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      job_type:
+        one: Job Type
+        other: Job Types
+    attributes:
+      job_type:
+        name: Name
+        status: Status

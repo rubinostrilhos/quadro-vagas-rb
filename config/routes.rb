@@ -33,4 +33,9 @@ Rails.application.routes.draw do
     resources :tags, only: %i[ new create ]
   end
   get "search", to: "home#search", as: :search_jobs, param: :query
+
+  resources :job_types, only: [ :index, :new, :create, :edit, :update ] do
+    patch "archive", on: :member
+    patch "activate", on: :member
+  end
 end

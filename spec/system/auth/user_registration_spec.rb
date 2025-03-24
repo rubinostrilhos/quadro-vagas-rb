@@ -9,7 +9,6 @@ describe 'User registration', type: :system do
     fill_in 'E-mail', with: 'joao@email.com'
     fill_in 'Senha', with: 'password123'
     fill_in 'Confirmação de Senha', with: 'password123'
-
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Usuário criado com sucesso.'

@@ -1,0 +1,33 @@
+pt-BR:
+  job_types:
+    not_found: Job type not found
+    form:
+      save: Save
+      status:
+        active: Active
+        archived: Archived
+    index:
+      title: Job Types
+      new_job_type: New Job Type
+      edit: Edit
+      active: Active
+      activate: Activate
+      archived: Archived
+      archive: Archive
+      no_records: No job types registered.
+    new:
+      title: New Job Type
+    edit:
+      title: Edit job type
+    create:
+      success: Job type created successfully
+      alert: Job type was not created
+    update:
+      success: Job type updated
+      alert: Job type was not updated
+    archive:
+      success: Job type archived
+      alert: Something went wrong!
+    activate:
+      success: Job type activated
+      alert: Something went wrong!

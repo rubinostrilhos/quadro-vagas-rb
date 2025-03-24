@@ -3,5 +3,3 @@ en:
     toggle_status:
       success: 'Status changed successfully.'
       change_admin_status_alert: 'You cannot change the status of an admin.'
-    index:
-      unauthorized: 'Access denied.'

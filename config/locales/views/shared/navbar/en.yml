@@ -5,6 +5,7 @@ en:
       sign_up: Sign up
       sign_out: Sign out
       company_profile: Company Profile
+      job_types: Job Types
       new_job_post: Post a job
       placeholder_search: 'Search here...'
       experience_levels: 'Experience Level'

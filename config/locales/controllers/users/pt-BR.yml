@@ -3,5 +3,3 @@ pt-BR:
     toggle_status:
       success: 'Status alterado com sucesso.'
       change_admin_status_alert: 'Não é possível alterar o status de um administrador.'
-    index:
-      unauthorized: 'Acesso negado.'

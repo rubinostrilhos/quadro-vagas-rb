@@ -7,6 +7,8 @@ class JobPostingsController < ApplicationController
 
   def new
     @job_posting = JobPosting.new
+    @experience_levels = ExperienceLevel.active
+    @job_types = JobType.active
   end
 
   def create
@@ -16,6 +18,8 @@ class JobPostingsController < ApplicationController
       redirect_to @job_posting, notice: t(".success")
     else
       flash[:alert] = t(".failure")
+      @experience_levels = ExperienceLevel.active
+      @job_types = JobType.active
       render :new, status: :unprocessable_entity
     end
   end

@@ -30,7 +30,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <%= f.label :job_type_id%>
-                <%= f.collection_select :job_type_id, JobType.all, :id, :name, {:prompt => false}, {class: 'input'} %>
+                <%= f.collection_select :job_type_id, @job_types, :id, :name, {:prompt => false}, {class: 'input'} %>
             </div>
             
             <div>

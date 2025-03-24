@@ -108,7 +108,7 @@ describe 'User visits users list', type: :system do
       expect(page).not_to have_button 'Desativar'
       expect(page).not_to have_button 'Ativar'
       expect(current_path).to eq root_path
-      expect(page).to have_content 'Acesso negado.'
+      expect(page).to have_content 'Acesso não autorizado'
     end
 
     it 'and cant access unauthenticated' do

@@ -4,7 +4,7 @@ describe "Visitor sees job postings", type: :system do
   it "successfully" do
     first_user = create(:user)
     rubyoncloud = create(:company_profile, name: "Ruby on cloud", website_url: "http://rubyoncloud.com", contact_email: "contact@rubyoncloud.com", user: first_user)
-    full_time_job = JobType.create!(name: "full time")
+    full_time_job = create(:job_type, name: "full time")
     pleno = create(:experience_level, name: 'Pleno')
     create(:job_posting, title: "Dev Rails", salary: "1000.00", salary_currency: :usd, salary_period: :monthly, job_type: full_time_job, description: "Software Developer", company_profile: rubyoncloud, experience_level: pleno)
 

@@ -10,7 +10,7 @@ describe 'user create job post', type: :system do
   it 'sucessfully', js: true do
     user = create(:user)
     create(:company_profile, user: user)
-    JobType.create!(name: 'Part time')
+    create(:job_type, name: 'Part time')
     ExperienceLevel.create!(name: 'Junior', status: :active)
 
     login_as user
@@ -35,7 +35,7 @@ describe 'user create job post', type: :system do
   it 'and add multiples tags', js: true do
     user = create(:user)
     create(:company_profile, user: user)
-    JobType.create!(name: 'Part time')
+    create(:job_type, name: 'Part time')
     ExperienceLevel.create!(name: 'Junior', status: :active)
 
     login_as user
@@ -71,7 +71,7 @@ describe 'user create job post', type: :system do
   it 'and can not select experience level archived', js: true do
     user = create(:user)
     create(:company_profile, user: user)
-    JobType.create!(name: 'Part time')
+    create(:job_type, name: 'Part time', status: :active)
     ExperienceLevel.create!(name: 'Junior', status: :active)
     ExperienceLevel.create!(name: 'Pleno', status: :archived)
 
@@ -86,7 +86,7 @@ describe 'user create job post', type: :system do
   it 'fail due to empty required fields' do
     user = create(:user)
     create(:company_profile, user: user)
-    JobType.create!(name: 'Part time')
+    create(:job_type, name: 'Part time')
     ExperienceLevel.create!(name: 'Junior')
 
     login_as user
@@ -98,5 +98,21 @@ describe 'user create job post', type: :system do
     click_on 'Anunciar'
 
     expect(page).to have_content 'Erro ao tentar criar Anúncio da vaga'
+  end
+
+  it 'and can only choose from active job types' do
+    user = create(:user)
+    create(:company_profile, user: user)
+    create(:job_type, name: 'Part-time', status: :active)
+    create(:job_type, name: 'Internship', status: :active)
+    create(:job_type, name: 'Senior', status: :archived)
+    ExperienceLevel.create!(name: 'Junior')
+
+    login_as user
+    visit new_job_posting_path
+
+    expect(page).to have_content 'Part-time'
+    expect(page).to have_content 'Internship'
+    expect(page).not_to have_content 'Senior'
   end
 end

@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   private
 
   def only_admin_access
-    redirect_to root_path, alert: t(".unauthorized") unless admin?
+    redirect_to root_path, alert: I18n.t("unauthorized") unless admin?
   end
 end

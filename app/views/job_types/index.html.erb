@@ -1,0 +1,30 @@
+<div class="max-w-2xl mx-auto p-6 w-full">
+  <h1 class="text-2xl font-semibold text-center text-slate-800 mb-6"><%= t('.title') %></h1>
+
+    <%= link_to t('.new_job_type'), new_job_type_path, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <% if @job_types.any? %>
+        <% @job_types.each do |job_type| %>
+        
+          <div class="flex justify-between items-center p-4 border-b last:border-none", id="<%=dom_id job_type%>">
+            <span class="text-lg font-medium text-slate-700"><%= job_type.name %></span>
+            <span class="px-3 py-1 mx-4 text-sm font-semibold rounded-full
+              <%= job_type.active? ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' %>">
+              <%= job_type.active? ? t('.active') : t('.archived') %>
+            </span>
+
+            <%= link_to t('.edit'), edit_job_type_path(job_type), class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <% if job_type.active? %>
+              <%= button_to t('.archive'), archive_job_type_path(job_type), method: "patch", class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <% elsif job_type.archived? %>
+              <%= button_to t('.activate'), activate_job_type_path(job_type), method: "patch", class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <% end %>
+          </div>
+
+        <% end %>
+      <% else %>
+        <span><%=t('.no_records')%></span>
+      <% end %>
+    </div>
+</div>

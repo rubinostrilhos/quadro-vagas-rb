@@ -1,0 +1,33 @@
+pt-BR:
+  job_types:
+    not_found: Tipo de vaga não encontrado
+    form:
+      save: Salvar
+      status:
+        active: Ativo
+        archived: Arquivado
+    index:
+      title: Tipos de Vagas
+      new_job_type: Novo Tipo de Vaga
+      edit: Editar
+      active: Ativo
+      activate: Ativar
+      archived: Arquivado
+      archive: Arquivar
+      no_records: Não há tipos de vagas cadastrados.
+    new:
+      title: Novo tipo de vaga
+    edit:
+      title: Editar tipo de vaga
+    create:
+      success: Tipo de vaga criada com sucesso
+      alert: Não foi possível criar o tipo de vaga
+    update:
+      success: Tipo de vaga editada com sucesso
+      alert: Não foi possível editar
+    archive:
+      success: Tipo de vaga arquivada
+      alert: Falha ao arquivar o tipo de vaga
+    activate:
+      success: Tipo de vaga ativada
+      alert: Falha ao ativar o tipo de vaga

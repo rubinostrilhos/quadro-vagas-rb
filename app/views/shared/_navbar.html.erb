@@ -4,7 +4,7 @@
       <!-- Brand logo -->
       <a href="<%= root_path %>" aria-label="Quadro de Vagas logo" aria-current="page" class="flex items-center gap-2 py-3 text-lg whitespace-nowrap focus:outline-none lg:flex-1">
         Quadro de Vagas
-      </a>
+      </a>    
 
       <%= form_with url: search_jobs_path, method: :get do |form| %>
         <div class="relative my-6">
@@ -32,7 +32,6 @@
       <ul role="menubar" aria-label="Select page" class="invisible absolute top-0 left-0 z-[-1] ml-auto h-screen w-full justify-center overflow-hidden overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-28 font-medium opacity-0 transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0 lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0 lg:pt-0 lg:opacity-100">
         <li role="none" class="flex items-stretch">
           <%= link_to 'Home', root_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8", role:"menuitem", aria: { 'haspopup':"false" } %>
-
         </li>
 
         <div class="flex items-center gap-4">
@@ -42,7 +41,7 @@
             <li role="none" class="flex items-stretch">
               <% if Current.user.company_profile %>
                 <%= link_to t('.company_profile'), company_profile_path(Current.user.company_profile), class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
-                <%= link_to t("shared.navbar.new_job_post"), new_job_posting_path, class: "py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"%>
+                <%= link_to t(".new_job_post"), new_job_posting_path, class: "py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"%>
               <% else %>
                 <%= link_to t('.company_profile'), new_company_profile_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
               <% end %>
@@ -51,14 +50,15 @@
               <% if admin? %>
                 <%= link_to User.model_name.human(count: 2), users_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
                 <%= link_to t('.experience_levels'), experience_levels_path, class:"flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8 hover:cursor-pointer", role:"menuitem", aria: { 'haspopup':"false" } %>
+                <%= link_to t(".job_types"), job_types_path, class: "py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8" %>
               <% end %>
             </li>
 
-            <%= button_to t("shared.navbar.sign_out"), session_path, method: :delete, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <%= button_to t(".sign_out"), session_path, method: :delete, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
           <% else %>
             <!-- When unauthenticated -->
-            <%= link_to t("shared.navbar.sign_in"), new_session_path, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
-            <%= link_to t("shared.navbar.sign_up"), new_registration_path, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <%= link_to t(".sign_in"), new_session_path, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
+            <%= link_to t(".sign_up"), new_registration_path, class: "cursor-pointer py-2 px-4 font-medium text-slate-700 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none border border-slate-200 hover:border-slate-300 focus:border-slate-300 rounded-md" %>
           <% end %>
         </div>
 
