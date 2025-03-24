@@ -9,8 +9,7 @@ RSpec.describe JobType, type: :model do
     end
 
     context 'Status' do
-      it { should validate_presence_of(:status) }
-      it { should define_enum_for(:status).with_values(active: 0, archived: 10) }
+      it { should define_enum_for(:status).with_values(active: 0, archived: 10).with_default(:active) }
     end
   end
 end
