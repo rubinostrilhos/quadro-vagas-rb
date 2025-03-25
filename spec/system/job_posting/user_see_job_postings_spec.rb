@@ -5,11 +5,11 @@ describe "User see job postings", type: :system do
     experience_level_jr = ExperienceLevel.create(name: "Junior")
     first_user = create(:user, email_address: 'first@email.com')
     first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
-    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :posted, company_profile: first_company, experience_level: experience_level_jr)
+    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :published, company_profile: first_company, experience_level: experience_level_jr)
     node_job = create(:job_posting, title: "Node Dev Jr.", status: :archived, company_profile: first_company, experience_level: experience_level_jr)
     second_user = create(:user, email_address: 'second@email.com')
     second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
-    django_job = create(:job_posting, title: "Django Dev Jr.", status: :posted, company_profile: second_company, experience_level: experience_level_jr)
+    django_job = create(:job_posting, title: "Django Dev Jr.", status: :published, company_profile: second_company, experience_level: experience_level_jr)
 
     login_as first_user
     visit root_path

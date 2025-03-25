@@ -39,14 +39,14 @@ RSpec.describe JobPosting, type: :model do
   end
 
   context 'status' do
-    it "should be active if company is active" do
+    it "should be published if company is active" do
       user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)
-      expect(job_posting.status).to eq("posted")
+      expect(job_posting.status).to eq("published")
     end
 
-    it "should be inactive if company is inactive" do
+    it "should be archived if company is inactive" do
       user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)

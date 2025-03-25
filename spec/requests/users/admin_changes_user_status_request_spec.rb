@@ -59,7 +59,7 @@ describe 'User tries to change the status of another user', type: :request do
 
       expect(user.reload.status).to eq "active"
       expect(company.reload.status).to eq "active"
-      expect(job_posting.reload.status).to eq "posted"
+      expect(job_posting.reload.status).to eq "published"
       expect(response).to redirect_to users_path
       expect(response.status).to eq 302
     end

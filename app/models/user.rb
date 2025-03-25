@@ -28,7 +28,7 @@ class User < ApplicationRecord
 
   def deactivate!
     update!(status: :inactive)
-    job_postings.where(status: "posted").update_all(status: "archived")
+    job_postings.published.update_all(status: "archived")
     sessions&.destroy_all
   end
 

@@ -19,10 +19,10 @@
   </div>
 
   <% if @job_posting.company_profile.user == Current.user %>
-    <% if @job_posting.posted? %>
+    <% if @job_posting.published? %>
       <%= button_to t(".archive"), archive_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-red-700 hover:bg-red-800' %>
     <% else %>
-      <%= button_to t(".posted"), post_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-blue-700 hover:bg-blue-800' %>
+      <%= button_to t(".republish"), post_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-blue-700 hover:bg-blue-800' %>
     <% end %>
   <% end %>
   <%= link_to t(".back"), root_path, class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>

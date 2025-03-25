@@ -88,7 +88,7 @@ describe 'User visits users list', type: :system do
 
       expect(user.reload.status).to eq "active"
       expect(company.reload.status).to eq "active"
-      expect(job_posting.reload.status).to eq "posted"
+      expect(job_posting.reload.status).to eq "published"
       expect(page).to have_css("td.text-green-500", text: User.human_enum_name('status', user.reload.status))
       expect(page).to have_content 'Status alterado com sucesso.'
     end

@@ -31,7 +31,7 @@ class JobPostingsController < ApplicationController
   end
 
   def post
-    if @job_posting.posted!
+    if @job_posting.published!
       flash[:notice] = t(".success")
     else
       flash[:alert] = t(".failure")

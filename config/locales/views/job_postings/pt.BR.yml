@@ -2,7 +2,7 @@ pt-BR:
   job_postings:
     show:
       archive: "Arquivar"
-      posted: "Postar"
+      republish: "Republicar"
       back: "Voltar"
     new:
       title: "Anunciar vaga"

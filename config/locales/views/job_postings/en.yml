@@ -2,7 +2,7 @@ en:
   job_postings:
     show:
       archive: "Archive"
-      posted: "Post"
+      republish: "Republish"
       back: "Back"
     new:
       title: "Post a Job"

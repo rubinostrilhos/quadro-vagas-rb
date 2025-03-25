@@ -10,6 +10,6 @@ FactoryBot.define do
     experience_level
     job_location { "City, Country" }
     description { "Something" }
-    status { :posted }
+    status { :published }
   end
 end
