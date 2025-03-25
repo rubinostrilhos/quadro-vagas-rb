@@ -1,6 +1,8 @@
 en:
   job_postings:
     show:
+      archive: "Archive"
+      republish: "Republish"
       back: "Back"
     new:
       title: "Post a Job"
@@ -10,5 +12,13 @@ en:
         salary_period: "Select salary period"
       tag: "Tags"
     create:
-      failure: "Failed to create a job posting"
-      success: "Job Posting created successfully"
+      failure: "Error trying to create job ad"
+      success: "Ad created successfully"
+    archive:
+      failure: "Error trying to archive job ad"
+      success: "Ad archived successfully"
+      negated_access: "Unauthorized access"
+    post:
+      failure: "Error trying to publish job ad"
+      success: "Ad published successfully"
+      negated_access: "Unauthorized access"

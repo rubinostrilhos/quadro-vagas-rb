@@ -1,6 +1,8 @@
 pt-BR:
   job_postings:
     show:
+      archive: "Arquivar"
+      republish: "Republicar"
       back: "Voltar"
     new:
       title: "Anunciar vaga"
@@ -12,3 +14,11 @@ pt-BR:
     create:
       failure: "Erro ao tentar criar Anúncio da vaga"
       success: "Anúncio criado com sucesso"
+    archive:
+      failure: "Erro ao tentar arquivar anúncio da vaga"
+      success: "Anúncio arquivado com sucesso"
+      negated_access: "Acesso não autorizado"
+    post:
+      failure: "Erro ao tentar publicar anúncio da vaga"
+      success: "Anúncio publicado com sucesso"
+      negated_access: "Acesso não autorizado"

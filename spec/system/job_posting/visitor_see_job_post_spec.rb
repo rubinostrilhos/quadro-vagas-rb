@@ -33,9 +33,10 @@ describe "Visitor sees job posting", type: :system do
   end
 
   it 'and fails because job posting is inactive' do
-    user = create(:user, status: :inactive)
+    user = create(:user, status: :active)
     company = create(:company_profile, user: user)
     job_posting = create(:job_posting, company_profile: company)
+    user.toggle_status!
 
     visit job_posting_path(job_posting)
 

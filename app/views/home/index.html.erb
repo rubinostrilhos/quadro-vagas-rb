@@ -1,12 +1,17 @@
 <% if @job_postings.any? %>
   <ul class="divide-y divide-slate-100 w-full">
-    <% @job_postings.each do |job| %>    
-      <li class="flex items-start gap-4 px-4 py-3 border-b border-slate-100">
+    <% @job_postings.each do |job| %>
+      <li id=<%= dom_id(job) %> class="flex items-start gap-4 px-4 py-3 border-b border-slate-100">
         <div class="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200">
           <div class="p-6">
             <h4 class="w-full text-base text-slate-700"><%= link_to job.title, job_posting_path(job) %></h4>
             <p><%= job.job_type.name %></p>
             <p><%= job.company_profile.name %></p>
+            <% if job.archived? %>
+              <span class="px-3 py-1 mx-4 text-sm font-semibold rounded-full bg-red-200 text-red-800">
+                <%=  t('.archived') %>
+              </span>
+            <% end %>
           </div>
         </div>
       </li>

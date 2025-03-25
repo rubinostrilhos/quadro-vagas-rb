@@ -3,6 +3,7 @@ module Authentication
 
   included do
     before_action :require_authentication
+    before_action :resume_session
     helper_method :authenticated?, :admin?
   end
 

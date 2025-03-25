@@ -30,11 +30,12 @@ describe "Visitor sees job postings", type: :system do
   it "and cant see inactive job postings" do
     first_user = create(:user, status: :active)
     first_company = create(:company_profile, name: "Ruby on cloud", website_url: "http://rubyoncloud.com", contact_email: "contact@rubyoncloud.com", user: first_user)
-    second_user = create(:user, email_address: 'second@user.com', status: :inactive)
+    second_user = create(:user, email_address: 'second@user.com', status: :active)
     second_company = create(:company_profile, name: "Microsoft", website_url: "http://microsoft.com", contact_email: "contact@microsoft.com", user: second_user)
     job_type = create(:job_type, name: 'Júnior')
     create(:job_posting, title: "Dev Rails", description: "Software Developer", company_profile: first_company, job_type: job_type)
     create(:job_posting, title: "Dev Node", company_profile: second_company, job_type: job_type)
+    second_user.toggle_status!
 
     visit root_path
 
@@ -46,5 +47,23 @@ describe "Visitor sees job postings", type: :system do
     visit root_path
 
     expect(page).to have_content("Nenhuma vaga disponível no momento.")
+  end
+
+  it "and not see archived job posting" do
+    experience_level_jr = ExperienceLevel.create(
+      name: "Junior",
+      status: :archived
+    )
+    first_user = create(:user, email_address: 'first@email.com')
+    first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
+    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :archived, company_profile: first_company, experience_level: experience_level_jr)
+    second_user = create(:user, email_address: 'second@email.com')
+    second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
+    django_job = create(:job_posting, title: "Django Dev Jr.", status: :published, company_profile: second_company, experience_level: experience_level_jr)
+
+    visit root_path
+
+    expect(page).not_to have_content rails_job.title
+    expect(page).to have_content django_job.title
   end
 end

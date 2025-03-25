@@ -17,5 +17,13 @@
     <p><%= JobPosting.human_attribute_name(:salary) %>: <%= @job_posting.currency_format %> | <%= JobPosting.human_enum_name("salary_currency", @job_posting.salary_currency) %></p>
     <p><%= JobPosting.human_attribute_name(:salary_period) %>: <%= JobPosting.human_enum_name("salary_period", @job_posting.salary_period) %></p>
   </div>
+
+  <% if @job_posting.company_profile.user == Current.user %>
+    <% if @job_posting.published? %>
+      <%= button_to t(".archive"), archive_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-red-700 hover:bg-red-800' %>
+    <% else %>
+      <%= button_to t(".republish"), post_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-blue-700 hover:bg-blue-800' %>
+    <% end %>
+  <% end %>
   <%= link_to t(".back"), root_path, class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>
 </div>

@@ -10,6 +10,8 @@ RSpec.describe JobPosting, type: :model do
     it { should validate_presence_of(:description) }
     it { should belong_to :company_profile }
     it { should belong_to :job_type }
+    it { should validate_presence_of(:description) }
+    it { define_enum_for(:status) }
     it { should belong_to :experience_level }
   end
 
@@ -37,18 +39,19 @@ RSpec.describe JobPosting, type: :model do
   end
 
   context 'status' do
-    it "should be active if company is active" do
+    it "should be published if company is active" do
       user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)
-      expect(job_posting.status).to eq("active")
+      expect(job_posting.status).to eq("published")
     end
 
-    it "should be inactive if company is inactive" do
-      user = create(:user, status: :inactive)
+    it "should be archived if company is inactive" do
+      user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)
-      expect(job_posting.status).to eq("inactive")
+      user.deactivate!
+      expect(job_posting.reload.status).to eq("archived")
     end
   end
 end
