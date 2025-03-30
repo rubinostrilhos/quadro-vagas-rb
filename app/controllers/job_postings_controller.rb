@@ -30,6 +30,7 @@ class JobPostingsController < ApplicationController
     if @job_posting.update(job_posting_params)
       redirect_to @job_posting, notice: t(".success")
     else
+      flash.now[:alert] = t(".failure")
       render :edit, status: :unprocessable_entity
     end
   end

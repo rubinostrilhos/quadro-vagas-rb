@@ -17,3 +17,4 @@ pt-BR:
       tag: "Tags"
     update:
       success: "Anúncio atualizado com sucesso."
+      failure: "Erro ao tentar editar o Anúncio da vaga."
