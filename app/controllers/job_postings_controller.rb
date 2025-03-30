@@ -20,6 +20,21 @@ class JobPostingsController < ApplicationController
     end
   end
 
+  def edit
+    @job_posting = JobPosting.find(params[:id])
+  end
+
+  def update
+    @job_posting = JobPosting.find(params[:id])
+
+    if @job_posting.update(job_posting_params)
+      redirect_to @job_posting, notice: t(".success")
+    else
+      flash.now[:alert] = t(".failure")
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def job_posting_params

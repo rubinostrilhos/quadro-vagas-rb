@@ -4,11 +4,17 @@ en:
       back: "Back"
     new:
       title: "Post a Job"
+    create:
+      failure: "Failed to create a job posting"
+      success: "Job Posting created successfully"
+    edit:
+      title: "Edit a Job"
+    form:
       submit: "Submit"
       select:
         work_arrangement: "Select work arrangement"
         salary_period: "Select salary period"
       tag: "Tags"
-    create:
-      failure: "Failed to create a job posting"
-      success: "Job Posting created successfully"
+    update:
+      success: "Job posting updated successfully."
+      failure: "Error while trying to edit the Job posting."

@@ -18,4 +18,5 @@
     <p><%= JobPosting.human_attribute_name(:salary_period) %>: <%= JobPosting.human_enum_name("salary_period", @job_posting.salary_period) %></p>
   </div>
   <%= link_to t(".back"), root_path, class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>
+  <%= link_to 'Editar', edit_job_posting_path(@job_posting), class: 'block w-full py-2 text-center text-white bg-slate-700 hover:bg-slate-800' %>
 </div>

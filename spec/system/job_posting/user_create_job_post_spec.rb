@@ -24,7 +24,7 @@ describe 'user create job post', type: :system do
     select 'Remoto', from: 'Arranjo de trabalho'
     select 'Junior', from: 'Nível de experiência'
     find('trix-editor').click.set("teste")
-    click_on 'Anunciar'
+   click_on 'Salvar'
 
     expect(page).to have_content 'Anúncio criado com sucesso'
     expect(page).to have_content 'Desenvolvedor backend'
@@ -54,7 +54,7 @@ describe 'user create job post', type: :system do
     find('#new_tags_fields1').set('TDD')
     find('#new_field_tag').click
     find('#new_tags_fields2').set('RSpec')
-    click_on 'Anunciar'
+   click_on 'Salvar'
 
     expect(page).to have_content 'Anúncio criado com sucesso'
     expect(page).to have_content 'Desenvolvedor backend'
@@ -83,7 +83,7 @@ describe 'user create job post', type: :system do
     expect(page).not_to have_content 'Pleno'
   end
 
-  it 'fail due to empty required fields' do
+  it 'fail due to empty required fields', js: true do
     user = create(:user)
     create(:company_profile, user: user)
     JobType.create!(name: 'Part time')
@@ -95,7 +95,7 @@ describe 'user create job post', type: :system do
 
     click_on 'Anunciar vaga'
     fill_in 'Título', with: 'Desenvolvedor backend'
-    click_on 'Anunciar'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Erro ao tentar criar Anúncio da vaga'
   end

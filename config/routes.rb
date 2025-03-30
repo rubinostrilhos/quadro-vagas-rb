@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :company_profiles, only: [ :show, :new, :create ]
-  resources :job_postings, only: %i[ show new create ] do
+  resources :job_postings, only: %i[ show new create edit update ] do
     resources :tags, only: %i[ new create ]
   end
   get "search", to: "home#search", as: :search_jobs, param: :query

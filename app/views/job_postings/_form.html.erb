@@ -1,0 +1,74 @@
+<%= form_with model: @job_posting, class: "space-y-3" do |f|%>
+        <div>
+            <%= f.label :title%>
+            <%= f.text_field :title,  class: "input"%>
+            <%= form_errors @job_posting, :title %>
+        </div>
+
+        <div>
+            <%= f.label :salary_period  %>
+            <%= f.select :salary_period, JobPosting.salary_periods.keys.map { |p| [JobPosting.human_enum_name(:salary_period, p), p] }, { prompt: t(".select.salary_period") }, { class: 'input'} %>
+            <%= form_errors @job_posting, :salary_period %>
+        </div>
+
+        <div class="flex gap-4">
+             <div class="w-fit">
+                <%= f.label :salary_currency, class: "block" %>
+                <%= f.select :salary_currency, JobPosting.salary_currencies.keys.map { |k| [JobPosting.human_enum_name(:salary_currency, k), k] },{prompt: false}, { class: 'input'} %>
+                <%= form_errors @job_posting, :salary_period %>
+            </div>
+            
+            <div class="flex-1">
+                <%= f.label :salary %>
+                <%= f.number_field :salary,step: 0.01, class: "input" %>
+                <%= form_errors @job_posting, :salary %>
+            </div>
+        </div>
+       
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <%= f.label :job_type_id%>
+                <%= f.collection_select :job_type_id, JobType.all, :id, :name, {:prompt => false}, {class: 'input'} %>
+            </div>
+            
+            <div>
+                <%= f.label :work_arrangement  %>
+                <%= f.select :work_arrangement, JobPosting.work_arrangements.keys.map { |w| [JobPosting.human_enum_name(:work_arrangements, w), w] }, { prompt: t(".select.work_arrangement") }, class: 'input' %>
+                <%= form_errors @job_posting, :work_arrangement %>
+            </div>
+        </div>
+        
+        <div>
+            <%= f.label :experience_level_id %>
+            <%= f.collection_select :experience_level_id, ExperienceLevel.active, :id, :name, {:prompt => false}, {class: 'input'} %>
+        </div>
+
+        <div>
+            <%= f.label :job_location%>
+            <%= f.text_field :job_location,  class: "input"%>
+            <%= form_errors @job_posting, :job_location %>
+        </div>
+
+        <div>
+            <h2><%= t(".tag") %></h2>
+            <div data-controller="tags" class="flex flex-1 gap-2">
+                <div id="new_tags_fields" data-tags-target="newTags" class="w-full"></div>
+                <div class="mt-2 mb-2">
+                    <button type="button" data-action="click->tags#addTag" data-tags-target="btn" class="hover:cursor-pointer">
+                        <%= image_tag 'plus.svg', class: 'w-8', title: 'Nova tag', id: 'new_field_tag' %>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <%= f.label :description %>
+            <%= f.rich_text_area :description %>
+            <%= form_errors @job_posting, :description %>
+        </div>
+
+        <div class="mt-10">
+            <%= f.submit t(".submit"),
+          class: "button-submit" %>
+        </div>
+    <% end %>
